@@ -17,7 +17,7 @@ node {
     }
 
     stage('Deploy') {
-        withCredentials([string(credentialsId: 'heroku-api-token', variable: 'HEROKU_API_KEY')]) {
+       withCredentials([sshUserPrivateKey(credentialsId: '645de76f-1c11-4f2d-a5da-38e137429f3c', keyFileVariable: 'SSH_KEY')]){
             // //ssh version
             sh 'git remote set-url heroku git@heroku.com:a428-cicd-labs.git'   
             sh 'git remote -v' // Untuk memeriksa remote yang sudah diatur
