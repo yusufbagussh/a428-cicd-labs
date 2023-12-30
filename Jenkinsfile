@@ -17,11 +17,11 @@ node {
     // }
 
     stage('Deploy') {
-        sh '''
-        echo "machine api.heroku.com" >> $HOME/.netrc
-        echo "login bagus.herlambang@student.uns.ac.id" >> $HOME/.netrc
-        echo "password 3085c2ad-00f9-4ca7-a80c-aa15c11a7ddb" >> $HOME/.netrc
-        '''
+        // sh '''
+        // echo "machine api.heroku.com" >> $HOME/.netrc
+        // echo "login bagus.herlambang@student.uns.ac.id" >> $HOME/.netrc
+        // echo "password 3085c2ad-00f9-4ca7-a80c-aa15c11a7ddb" >> $HOME/.netrc
+        // '''
         sh "git remote set-url heroku https://git.heroku.com/a428-cicd-labs.git"      
         sh 'git push heroku HEAD:master'
     }
