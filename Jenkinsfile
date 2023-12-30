@@ -18,10 +18,17 @@ node {
 
     stage('Deploy') {
         withCredentials([string(credentialsId: 'heroku-api-token', variable: 'HEROKU_API_KEY')]) {
-            sh 'git remote set-url heroku git@heroku.com:a428-cicd-labs.git'   
-            sh 'git remote -v' // Untuk memeriksa remote yang sudah diatur
-            sh 'ssh -v git@heroku.com'// Tes koneksi SSH
-            sh 'GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" git push heroku HEAD:master -v'
+            // //ssh version
+            // sh 'git remote set-url heroku git@heroku.com:a428-cicd-labs.git'   
+            // sh 'git remote -v' // Untuk memeriksa remote yang sudah diatur
+            // sh 'ssh -v git@heroku.com'// Tes koneksi SSH
+            // sh 'GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" git push heroku HEAD:master -v'
+                        // Atur ulang remote Heroku ke HTTPS
+            sh 'git remote set-url heroku https://git.heroku.com/a428-cicd-labs.git'
+            sh 'git remote -v' // Memeriksa remote yang sudah diatur
+            
+            // Push ke Heroku menggunakan HTTPS dan otentikasi dengan API key
+            sh 'git push heroku HEAD:master -v'
         }
     }
 }
