@@ -33,7 +33,7 @@ node {
                 // Mengatur remote ke Heroku
                 sh 'git remote set-url heroku git@heroku.com:your-app-name.git'
                 sh 'git remote -v' // Untuk memeriksa remote yang sudah diatur
-                sh 'ssh -v git@heroku.com'// Tes koneksi SSH
+                // sh 'ssh -v git@heroku.com'// Tes koneksi SSH
                 // Melakukan git push menggunakan ssh-agent
                 sh 'git push heroku HEAD:master -v'
             }
