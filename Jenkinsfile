@@ -26,6 +26,6 @@ node {
     stage('Deploy') {
         // sh './jenkins/scripts/kill.sh'
         sh 'heroku git:remote -a a428-cicd-labs'
-        // sh 'git push heroku HEAD:master'
+        sh 'git push heroku HEAD:master'
     }
 }
