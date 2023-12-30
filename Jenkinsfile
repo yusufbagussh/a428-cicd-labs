@@ -10,9 +10,10 @@ node {
         env.PATH = "${env.PATH}:${newPath}"
         // Login ke Heroku
         sh 'heroku login -i' // -i flag untuk otentikasi interaktif, atau gunakan environment variable untuk otentikasi
-
-        // Deployment ke Heroku
-        sh 'git push heroku HEAD:master' // Pastikan remote Heroku sudah ada dalam repository git
+        withCredentials([string(credentialsId: 'heroku-api-token', variable: 'HEROKU_API_KEY')]) {
+            sh 'heroku container:login' // Login ke registry Heroku (jika menggunakan container)
+            sh 'git push heroku HEAD:master' // Deployment ke Heroku dari branch master (sesuaikan dengan branch yang Anda gunakan)
+        }
     }
 
     docker.image('node:16-buster-slim').inside('-p 3000:3000') {
