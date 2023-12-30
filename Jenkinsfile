@@ -24,9 +24,12 @@ node {
     }
 
     stage('Deploy') {
-        // sh './jenkins/scripts/kill.sh'
-        sh 'heroku git:remote -a a428-cicd-labs || echo "Failed to set Heroku remote"'
-        sh 'git remote -v' // Untuk memeriksa remote yang sudah diatur
-        sh 'git push heroku HEAD:master -v' // Tambahkan '-v' untuk verbose output
+        def herokuApp = 'a428-cicd-labs'
+        withCredentials([string(credentialsId: 'heroku-api-token', variable: 'HEROKU_API_TOKEN')]) {
+            // sh './jenkins/scripts/kill.sh'
+            sh 'heroku git:remote -a a428-cicd-labs || echo "Failed to set Heroku remote"'
+            sh 'git remote -v' // Untuk memeriksa remote yang sudah diatur
+            sh 'git push heroku HEAD:master -v' // Tambahkan '-v' untuk verbose output
+        }
     }
 }
