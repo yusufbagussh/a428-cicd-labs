@@ -12,12 +12,13 @@ node {
 
     stage('Heroku Login') {
         withCredentials([usernamePassword(credentialsId: 'heroku-credential', passwordVariable: 'HEROKU_API_KEY', usernameVariable: 'HEROKU_EMAIL')]) {
-            sh "echo $HEROKU_API_KEY | heroku login --username=$HEROKU_EMAIL --password-stdin"
+            sh 'git remote set-url heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/a428-cicd-labs.git'
+            sh 'git push heroku HEAD:master'
         }
     }
 
-    stage('Deploy') {
-        sh "git remote set-url heroku https://git.heroku.com/a428-cicd-labs.git"
-        sh 'git push heroku HEAD:master'
-    }
+//     stage('Deploy') {
+//         sh "git remote set-url heroku https://git.heroku.com/a428-cicd-labs.git"
+//         sh 'git push heroku HEAD:master'
+//     }
 }
