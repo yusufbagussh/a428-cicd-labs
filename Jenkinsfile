@@ -25,7 +25,8 @@ node {
 
     stage('Deploy') {
         // sh './jenkins/scripts/kill.sh'
-        sh 'heroku git:remote -a a428-cicd-labs'
-        sh 'git push heroku HEAD:master'
+        sh 'heroku git:remote -a a428-cicd-labs || echo "Failed to set Heroku remote"'
+        sh 'git remote -v' // Untuk memeriksa remote yang sudah diatur
+        sh 'git push heroku HEAD:master -v' // Tambahkan '-v' untuk verbose output
     }
 }
