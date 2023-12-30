@@ -8,21 +8,23 @@ node {
     stage('Prepare') {
         def newPath = "/usr/local/bin/heroku"
         env.PATH = "${env.PATH}:${newPath}"
+        // Login ke Heroku
+        sh 'heroku login -i' // -i flag untuk otentikasi interaktif, atau gunakan environment variable untuk otentikasi
+
+        // Deployment ke Heroku
+        sh 'git push heroku master' // Pastikan remote Heroku sudah ada dalam repository git
     }
 
-    stage('Heroku Login') {
-            sh 'heroku login'
-            // sh 'heroku container:login'
-            sh 'heroku container:push -a a428-cicd-labs web'
-            sh 'heroku container:release -a a428-cicd-labs web'
-        // withCredentials([usernamePassword(credentialsId: 'heroku-credential', passwordVariable: 'HEROKU_API_KEY', usernameVariable: 'HEROKU_EMAIL')]) {
-        //     sh 'git remote set-url heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/a428-cicd-labs.git'
-        //     sh 'git push heroku HEAD:master'
-        // }
+    docker.image('node:16-buster-slim').inside('-p 3000:3000') {
+        stage('Build') {
+            sh 'npm install'
+        }
+        stage('Test') {
+            sh './jenkins/scripts/test.sh'
+        }
+        stage('Manual Approve'){
+            sh './jenkins/scripts/deliver.sh'
+            input message: 'Sudah selesai menggunakan React App? (Klik "Proceed" untuk mengakhiri)'
+        }
     }
-
-//     stage('Deploy') {
-//         sh "git remote set-url heroku https://git.heroku.com/a428-cicd-labs.git"
-//         sh 'git push heroku HEAD:master'
-//     }
 }
