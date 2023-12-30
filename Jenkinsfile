@@ -17,19 +17,10 @@ node {
     }
 
     stage('Deploy') {
-       withCredentials([sshUserPrivateKey(credentialsId: 'heroku-ssh-key', keyFileVariable: 'SSH_KEY')]){
-            
-            // Memulai ssh-agent dan menambahkan kunci privat
-            // sshagent(['heroku-ssh-key']) {
-            sshagent([SSH_KEY]) {
-                // Mengatur remote ke Heroku
-                sh 'git remote set-url heroku git@a428-cicd-labs.git'
-                sh 'git remote -v' // Untuk memeriksa remote yang sudah diatur
-                // sh 'ssh -v git@heroku.com'// Tes koneksi SSH
-                // Melakukan git push menggunakan ssh-agent
-                sh 'git push heroku HEAD:master -v'
-            }
-
-        }
+        echo "machine api.heroku.com" >> $HOME/.netrc
+        echo "login bagus.herlambang@student.uns.ac.id" >> $HOME/.netrc
+        echo "password 3085c2ad-00f9-4ca7-a80c-aa15c11a7ddb" >> $HOME/.netrc
+        sh "git remote set-url heroku https://git.heroku.com/a428-cicd-labs.git"      
+        sh 'git push heroku HEAD:master'
     }
 }
