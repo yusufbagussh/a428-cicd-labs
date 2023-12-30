@@ -12,8 +12,9 @@ node {
         sh 'heroku login -i' // -i flag untuk otentikasi interaktif, atau gunakan environment variable untuk otentikasi
         withCredentials([string(credentialsId: 'heroku-api-token', variable: 'HEROKU_API_KEY')]) {
             sh 'heroku container:login' // Login ke registry Heroku (jika menggunakan container)
-            sh 'heroku container:push -a a428-cicd-labs web'
-            sh 'heroku container:release -a a428-cicd-labs web' // Deployment ke Heroku dari branch master (sesuaikan dengan branch yang Anda gunakan)
+            sh 'heroku git:remote -a a428-cicd-labs' // Set remote Git untuk aplikasi Heroku
+            sh 'git remote -v' // Set remote Git untuk aplikasi Heroku
+            sh 'git push heroku HEAD:master'// Deployment ke Heroku dari branch master (sesuaikan dengan branch yang Anda gunakan)
         }
     }
 
