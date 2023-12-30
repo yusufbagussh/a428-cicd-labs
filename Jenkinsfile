@@ -17,14 +17,14 @@ node {
     }
 
     stage('Deploy') {
-       withCredentials([sshUserPrivateKey(credentialsId: '645de76f-1c11-4f2d-a5da-38e137429f3c', keyFileVariable: 'SSH_KEY')]){
+       withCredentials([sshUserPrivateKey(credentialsId: 'heroku-ssh-key', keyFileVariable: 'SSH_KEY')]){
             // //ssh version
             // sh 'git remote set-url heroku git@heroku.com:a428-cicd-labs.git'   
             // sh 'GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" git push heroku HEAD:master -v'
 
             sh "git remote set-url heroku git@heroku.com:a428-cicd-labs.git"
             sh 'git remote -v' // Untuk memeriksa remote yang sudah diatur
-            // sh 'ssh -v git@heroku.com'// Tes koneksi SSH
+            sh 'ssh -v git@heroku.com'// Tes koneksi SSH
             // Push to Heroku using SSH Key
             sh "GIT_SSH_COMMAND='ssh -i \$SSH_KEY -o StrictHostKeyChecking=no' git push heroku HEAD:master -v"
             
