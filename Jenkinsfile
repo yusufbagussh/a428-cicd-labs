@@ -14,13 +14,13 @@ node {
         stage('Build') {
             sh 'npm install'
         }
-        // stage('Test') {
-        //     sh './jenkins/scripts/test.sh'
-        // }
-        // stage('Manual Approve'){
-        //     sh './jenkins/scripts/deliver.sh'
-        //     // input message: 'Sudah selesai menggunakan React App? (Klik "Proceed" untuk mengakhiri)'
-        // }
+        stage('Test') {
+            sh './jenkins/scripts/test.sh'
+        }
+        stage('Manual Approve'){
+            sh './jenkins/scripts/deliver.sh'
+            // input message: 'Sudah selesai menggunakan React App? (Klik "Proceed" untuk mengakhiri)'
+        }
     }
 
     stage('Deploy') {
@@ -29,7 +29,8 @@ node {
             // sh './jenkins/scripts/kill.sh'
             sh 'heroku git:remote -a a428-cicd-labs || echo "Failed to set Heroku remote"'
             sh 'git remote -v' // Untuk memeriksa remote yang sudah diatur
-            sh 'git push heroku HEAD:master -v' // Tambahkan '-v' untuk verbose output
+              // Melakukan push menggunakan SSH dan variabel lingkungan untuk otentikasi
+            sh 'GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" git push heroku HEAD:master -v'
         }
     }
 }
