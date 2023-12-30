@@ -19,13 +19,13 @@ node {
         }
         stage('Manual Approve'){
             sh './jenkins/scripts/deliver.sh'
-            input message: 'Sudah selesai menggunakan React App? (Klik "Proceed" untuk mengakhiri)'
+            // input message: 'Sudah selesai menggunakan React App? (Klik "Proceed" untuk mengakhiri)'
         }
     }
 
     stage('Deploy') {
-        sh './jenkins/scripts/kill.sh'
-        // sh 'heroku git:remote -a a428-cicd-labs'
+        // sh './jenkins/scripts/kill.sh'
+        sh 'heroku git:remote -a a428-cicd-labs'
         // sh 'git push heroku HEAD:master'
     }
 }
