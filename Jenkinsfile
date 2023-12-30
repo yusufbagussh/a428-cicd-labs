@@ -32,7 +32,7 @@ node {
             // sh 'git config --global credential.helper "!f() { echo username=; echo password=${HEROKU_API_KEY}; }; f"'
             // // Push ke Heroku menggunakan HTTPS dan otentikasi dengan API key
             // sh 'git push heroku HEAD:master -v'
-            sh 'git push https://:${HEROKU_API_KEY}@git.heroku.com/a428-cicd-labs.git HEAD:master -v'
+            sh 'git push https://:ddbc1eed-6a16-4b67-ae5e-8a880411e809@git.heroku.com/a428-cicd-labs.git HEAD:master -v'
         }
     }
 }
