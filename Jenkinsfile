@@ -21,7 +21,7 @@ node {
             
             // Memulai ssh-agent dan menambahkan kunci privat
             // sshagent(['heroku-ssh-key']) {
-            sshagent([SSH_KEY]) {
+            sshagent(['heroku-ssh-key']) {
                 // Mengatur remote ke Heroku
                 sh 'git remote set-url heroku git@a428-cicd-labs.git'
                 sh 'git remote -v' // Untuk memeriksa remote yang sudah diatur
