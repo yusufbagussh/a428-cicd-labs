@@ -25,7 +25,7 @@ node {
 
     stage('Deploy') {
         def herokuApp = 'a428-cicd-labs'
-        withCredentials([string(credentialsId: 'heroku-api-token', variable: 'HEROKU_API_TOKEN')]) {
+        withCredentials([string(credentialsId: 'heroku-api-token', variable: 'HEROKU_API_KEY')]) {
             // sh './jenkins/scripts/kill.sh'
             sh 'heroku git:remote -a a428-cicd-labs || echo "Failed to set Heroku remote"'
             sh 'git remote -v' // Untuk memeriksa remote yang sudah diatur
