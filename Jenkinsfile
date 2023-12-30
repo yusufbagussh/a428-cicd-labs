@@ -13,12 +13,6 @@ pipeline {
                 sh 'heroku --version'
             }
         }
-        stage('Prepare') {
-            steps{
-                def newPath = "/usr/local/bin/heroku"
-                env.PATH = "${env.PATH}:${newPath}"
-            }
-        }
         stage('Build') {
             steps {
                 sh 'npm install'
