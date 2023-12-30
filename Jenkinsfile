@@ -27,6 +27,9 @@ node {
             sh 'git remote set-url heroku https://git.heroku.com/a428-cicd-labs.git'
             sh 'git remote -v' // Memeriksa remote yang sudah diatur
             
+            // Tambahkan HEROKU_API_KEY ke URL git remote
+            sh 'git config http.extraheader "Authorization: Bearer ${HEROKU_API_KEY}"'
+
             // Push ke Heroku menggunakan HTTPS dan otentikasi dengan API key
             sh 'git push heroku HEAD:master -v'
         }
