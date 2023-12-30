@@ -11,10 +11,14 @@ node {
     }
 
     stage('Heroku Login') {
-        withCredentials([usernamePassword(credentialsId: 'heroku-credential', passwordVariable: 'HEROKU_API_KEY', usernameVariable: 'HEROKU_EMAIL')]) {
-            sh 'git remote set-url heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/a428-cicd-labs.git'
-            sh 'git push heroku HEAD:master'
-        }
+            sh 'heroku login'
+            sh 'heroku container:login'
+            sh 'heroku container:push -a a428-cicd-labs web'
+            sh 'heroku container:release -a a428-cicd-labs web'
+        // withCredentials([usernamePassword(credentialsId: 'heroku-credential', passwordVariable: 'HEROKU_API_KEY', usernameVariable: 'HEROKU_EMAIL')]) {
+        //     sh 'git remote set-url heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/a428-cicd-labs.git'
+        //     sh 'git push heroku HEAD:master'
+        // }
     }
 
 //     stage('Deploy') {
