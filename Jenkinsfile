@@ -24,7 +24,7 @@ node {
 
             sh "git remote set-url heroku git@heroku.com:a428-cicd-labs.git"
             sh 'git remote -v' // Untuk memeriksa remote yang sudah diatur
-            sh 'ssh -v git@heroku.com'// Tes koneksi SSH
+            // sh 'ssh -v git@heroku.com'// Tes koneksi SSH
             // Push to Heroku using SSH Key
             sh "GIT_SSH_COMMAND='ssh -i \$SSH_KEY -o StrictHostKeyChecking=no' git push heroku HEAD:master -v"
             
