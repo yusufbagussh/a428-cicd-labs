@@ -20,7 +20,7 @@ node {
         def herokuApp = 'a428-cicd-labs'
         withCredentials([string(credentialsId: 'heroku-api-token', variable: 'HEROKU_API_KEY')]) {
             // sh './jenkins/scripts/kill.sh'
-            sh 'git remote set-url heroku git@heroku.com:${herokuApp}.git'   
+            sh 'git remote set-url heroku git@heroku.com:a428-cicd-labs.git'   
             sh 'git remote -v' // Untuk memeriksa remote yang sudah diatur
               // Melakukan push menggunakan SSH dan variabel lingkungan untuk otentikasi
             sh 'GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" git push heroku HEAD:master -v'
