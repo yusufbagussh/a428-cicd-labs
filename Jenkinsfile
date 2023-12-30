@@ -12,7 +12,7 @@ node {
         sh 'heroku login -i' // -i flag untuk otentikasi interaktif, atau gunakan environment variable untuk otentikasi
 
         // Deployment ke Heroku
-        sh 'git push heroku master' // Pastikan remote Heroku sudah ada dalam repository git
+        sh 'git push heroku HEAD:master' // Pastikan remote Heroku sudah ada dalam repository git
     }
 
     docker.image('node:16-buster-slim').inside('-p 3000:3000') {
