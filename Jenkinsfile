@@ -22,12 +22,22 @@ node {
             // sh 'git remote set-url heroku git@heroku.com:a428-cicd-labs.git'   
             // sh 'GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" git push heroku HEAD:master -v'
 
-            sh "git remote set-url heroku git@heroku.com:a428-cicd-labs.git"
-            sh 'git remote -v' // Untuk memeriksa remote yang sudah diatur
-            sh 'ssh -v git@heroku.com'// Tes koneksi SSH
-            // Push to Heroku using SSH Key
-            sh "GIT_SSH_COMMAND='ssh -i \$SSH_KEY -o StrictHostKeyChecking=no' git push heroku HEAD:master -v"
+            // sh "git remote set-url heroku git@heroku.com:a428-cicd-labs.git"
+            // sh 'git remote -v' // Untuk memeriksa remote yang sudah diatur
+            // sh 'ssh -v git@heroku.com'// Tes koneksi SSH
+            // // Push to Heroku using SSH Key
+            // sh "GIT_SSH_COMMAND='ssh -i \$SSH_KEY -o StrictHostKeyChecking=no' git push heroku HEAD:master -v"
             
+            // Memulai ssh-agent dan menambahkan kunci privat
+            sshagent([SSH_KEY]) {
+                // Mengatur remote ke Heroku
+                sh 'git remote set-url heroku git@heroku.com:your-app-name.git'
+                sh 'git remote -v' // Untuk memeriksa remote yang sudah diatur
+                sh 'ssh -v git@heroku.com'// Tes koneksi SSH
+                // Melakukan git push menggunakan ssh-agent
+                sh 'git push heroku HEAD:master -v'
+            }
+
             // // Atur ulang remote Heroku ke HTTPS
             // sh 'git remote set-url heroku https://git.heroku.com/a428-cicd-labs.git'
             // sh 'git remote -v' // Memeriksa remote yang sudah diatur
