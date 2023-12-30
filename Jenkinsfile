@@ -12,7 +12,7 @@ node {
 
     stage('Heroku Login') {
             sh 'heroku login'
-            sh 'heroku container:login'
+            // sh 'heroku container:login'
             sh 'heroku container:push -a a428-cicd-labs web'
             sh 'heroku container:release -a a428-cicd-labs web'
         // withCredentials([usernamePassword(credentialsId: 'heroku-credential', passwordVariable: 'HEROKU_API_KEY', usernameVariable: 'HEROKU_EMAIL')]) {
