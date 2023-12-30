@@ -30,6 +30,9 @@ node {
             // Tambahkan HEROKU_API_KEY ke URL git remote
             sh 'git config http.extraheader "Authorization: Bearer ${HEROKU_API_KEY}"'
 
+            sh 'git config --global credential.helper "!f() { echo username=; echo password=${HEROKU_API_KEY}; }; f"'
+
+
             // Push ke Heroku menggunakan HTTPS dan otentikasi dengan API key
             sh 'git push heroku HEAD:master -v'
         }
