@@ -17,7 +17,8 @@ node {
     }
 
     stage('Deploy') {
-        sh "git remote set-url heroku https://git.heroku.com/a428-cicd-labs.git"      
+        sh "git remote set-url heroku https://git.heroku.com/a428-cicd-labs.git"   
+        sh 'cat $HOME/.netrc'   
         sh 'git push heroku HEAD:master'
     }
 }
