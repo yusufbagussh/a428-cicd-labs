@@ -7,4 +7,15 @@ node {
             sh './jenkins/scripts/test.sh'
         }
     }
+    stage('Deploy to Heroku') {
+        // Mengasumsikan HEROKU_API_KEY sudah ditetapkan sebagai credentials di Jenkins
+        withCredentials([string(credentialsId: 'heroku-api-token', variable: 'HEROKU_API_KEY')]) {
+            // Login ke Heroku dengan Heroku CLI
+            sh 'heroku login -i'
+            // Tambahkan remote Heroku jika belum ada
+            sh 'git remote | grep heroku || heroku git:remote -a a428-cicd-labs'
+            // Push ke Heroku
+            sh 'git push heroku HEAD:master'
+        }
+    }
 }
