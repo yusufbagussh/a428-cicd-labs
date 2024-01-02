@@ -15,7 +15,7 @@ node {
                 echo 'password $HEROKU_API_KEY' >> $HOME/.netrc
                 chmod 600 $HOME/.netrc
             '''
-            git push heroku HEAD:master
+            sh 'git push heroku HEAD:master'
         }
     }
 }
