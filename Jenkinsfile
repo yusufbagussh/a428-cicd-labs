@@ -17,8 +17,6 @@ node {
                 # Debug: Ensure .netrc exists and has correct permissions
                 ls -la $HOME/.netrc
 
-                heroku whoami
-
                 # Attempt to push to Heroku
                 git push heroku HEAD:master
             '''
