@@ -11,7 +11,7 @@ node {
         // Mengasumsikan HEROKU_API_KEY sudah ditetapkan sebagai credentials di Jenkins
         withCredentials([string(credentialsId: 'heroku-api-token', variable: 'HEROKU_API_KEY')]) {
             // Login ke Heroku dengan Heroku CLI
-            sh 'heroku login  --apikey $HEROKU_API_KEY''
+            sh 'heroku login  --apikey $HEROKU_API_KEY'
             // Tambahkan remote Heroku jika belum ada
             sh 'git remote | grep heroku || heroku git:remote -a a428-cicd-labs'
             // Push ke Heroku
