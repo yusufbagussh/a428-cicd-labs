@@ -10,12 +10,18 @@ node {
     stage('Deploy to Heroku') {
         withCredentials([usernamePassword(credentialsId: 'heroku-credential-jenkins', usernameVariable: 'HEROKU_LOGIN', passwordVariable: 'HEROKU_API_KEY')]) {
             sh '''
-                echo 'machine git.heroku.com' > $HOME/.netrc
-                echo 'login $HEROKU_LOGIN' >> $HOME/.netrc
-                echo 'password $HEROKU_API_KEY' >> $HOME/.netrc
+                # Setup .netrc file with Heroku credentials
+                echo -e "machine git.heroku.com\nlogin $HEROKU_LOGIN\npassword $HEROKU_API_KEY" > $HOME/.netrc
                 chmod 600 $HOME/.netrc
+                
+                # Debug: Ensure .netrc exists and has correct permissions
+                ls -la $HOME/.netrc
+
+                heroku whoami
+
+                # Attempt to push to Heroku
+                git push heroku HEAD:master
             '''
-            sh 'git push heroku HEAD:master'
         }
     }
 }
