@@ -8,15 +8,16 @@ node {
         }
     }
     stage('Deploy to Heroku') {
-        // Mengasumsikan HEROKU_API_KEY sudah ditetapkan sebagai credentials di Jenkins
-        withCredentials([usernamePassword(credentialsId: 'heroku-credential-jenkins', usernameVariable: 'HEROKU_USERNAME', passwordVariable: 'HEROKU_PASSWORD')]) {
+        steps {
+        withCredentials([usernamePassword(credentialsId: 'heroku-credential-jenkins', usernameVariable: 'HEROKU_LOGIN', passwordVariable: 'HEROKU_API_KEY')]) {
             sh """
                 echo 'machine git.heroku.com' > ~/.netrc
                 echo 'login $HEROKU_LOGIN' >> ~/.netrc
                 echo 'password $HEROKU_API_KEY' >> ~/.netrc
                 chmod 600 ~/.netrc
-                git push heroku master
+                git push heroku HEAD:master
             """
         }
+    }
     }
 }
