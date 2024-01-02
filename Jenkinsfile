@@ -9,8 +9,7 @@ node {
     // }
     stage('Deploy to Heroku') {
         // Mengasumsikan HEROKU_API_KEY sudah ditetapkan sebagai credentials di Jenkins
-        withCredentials([usernamePassword(credentialsId: 'heroku-credentials', usernameVariable: 'HEROKU_USERNAME', passwordVariable: 'HEROKU_PASSWORD')]) {
-            // Login ke Heroku dengan Heroku CLI
+        withCredentials([string(credentialsId: 'heroku-api-token', variable: 'HEROKU_API_KEY')]) {            // Login ke Heroku dengan Heroku CLI
             sh 'heroku login -i'
 
             sh 'heroku whoami'
