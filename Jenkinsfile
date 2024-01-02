@@ -15,7 +15,10 @@ node {
             // Tambahkan remote Heroku jika belum ada
             sh 'git remote | grep heroku || heroku git:remote -a a428-cicd-labs'
             // Push ke Heroku menggunakan Heroku API key
-            sh "git push https://apikey:$HEROKU_API_KEY@git.heroku.com/a428-cicd-labs.git HEAD:master"
+
+            env.HEROKU_API_KEY = HEROKU_API_KEY
+    
+            sh 'git push https://apikey:$HEROKU_API_KEY@git.heroku.com/a428-cicd-labse.git HEAD:master'
         }
     }
 }
